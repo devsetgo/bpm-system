@@ -1,0 +1,14 @@
+-r prd.txt
+autopep8==1.5.7
+black==21.8b0 # from 21.6b0
+coverage==5.5
+coverage-badge==1.0.1
+flake8==3.9.2
+mkdocs==1.2.2 # from 1.2.1
+mkdocs-material==7.2.6 # from 7.1.9
+pre-commit==2.15.0 # from 2.13.0
+pylint==2.10.2 # from 2.8.3
+pytest==6.2.5 # from 6.2.4
+pytest-asyncio==0.15.1
+pytest-cov==2.12.1
+requests-mock==1.9.3
