@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 2,
+  "components": [
+    {
+      "label": "Submitted by",
+      "type": "textfield",
+      "id": "Field_1o25cyn",
+      "key": "submittedBy",
+      "description": "Who is submitting the request",
+      "validate": {
+        "required": true
+      }
+    },
+    {
+      "label": "Submitted For",
+      "type": "textfield",
+      "id": "Field_0vmj9bd",
+      "key": "submittedFor",
+      "description": "Who the request is for",
+      "validate": {
+        "required": true
+      }
+    },
+    {
+      "label": "Amount",
+      "type": "textfield",
+      "id": "Field_14k6eui",
+      "key": "amount",
+      "description": "Amount charged to cost center.",
+      "validate": {
+        "min": 1,
+        "required": true
+      }
+    }
+  ],
+  "type": "default",
+  "id": "requestForm",
+  "executionPlatform": "Camunda Platform",
+  "executionPlatformVersion": "7.15"
+}
