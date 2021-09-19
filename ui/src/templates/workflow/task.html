@@ -12,7 +12,17 @@
 
 <section class="content">
   <div class="row">{{task_data}}</div>
-  <div class="row">{{task_form}}</div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card card-primary">
+        <div class="card-header"></div>
+        <div class="card-body">
+          {{task_form.form|safe}}
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
 <!-- /.content -->
 </div>
