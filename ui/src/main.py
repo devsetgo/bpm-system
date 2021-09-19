@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 
-
-import sentry_sdk
+# import sentry_sdk
 from starlette.applications import Starlette
 from starlette_prometheus import metrics
 
