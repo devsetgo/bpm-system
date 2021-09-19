@@ -12,30 +12,55 @@
 
 <section class="content">
   <div class="row">
-    <div class="col-md-12">
-    <h3>
-      Search Contacts
-      <span class="htmx-indicator">
-        <img src="{{ url_for('static' , path='img/bars.svg') }}"/> Searching... 100 max results
-       </span>
-    </h3>
-    <input class="form-control" type="text"
-           name="search" placeholder="Begin Typing To Search Users..."
-           hx-get="/htmx/user_search"
-           hx-trigger="keyup changed delay:500ms"
-           hx-target="#search-results"
-           hx-indicator=".htmx-indicator">
-
-    <table class="table">
-        <thead>
-        <tr>
-          <th>ID</th><th>Preview</th><th>Word Count</th><th>Created</th>
-        </tr>
-        </thead>
-        <tbody id="search-results">
-        </tbody>
-    </table>
-  </div>
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title">DataTable with minimal features & hover style</h3>
+        </div>
+        <!-- /.card-header -->
+        <div class="card-body">
+          <table id="example2" class="table table-bordered table-hover">
+            <thead>
+            <tr>
+              <th>Task Name</th>
+              <th>Assignee</th>
+              <th>Follow Up Date</th>
+              <th>Due Date</th>
+              <th>Date Created</th>
+              <th>Priority</th>
+            </tr>
+            </thead>
+            <tbody>
+            <!-- Begin loop -->
+            {% for d in data %}
+              <tr>
+              <td><a href="/workflow/task/{{d.id}}">{{d.name}}</a></td>
+              <td>{{d.assignee}}</td>
+              <td>{{d.sim_follow_up}}</td>
+              <td>{{d.sim_due}}</td>
+              <td>{{d.sim_created}}</td>
+              <td>{{d.priority}}</td>
+            </tr>
+            <!-- End loop -->
+            {% endfor %}
+            </tbody>
+            <tfoot>
+            <tr>
+              <th>User Name</th>
+              <th>Reviewed</th>
+              <th>Rejected</th>
+              <th>Admin</th>
+              <th>Date Created</th>
+              <th>Date Updated</th>
+            </tr>
+            </tfoot>
+          </table>
+        </div>
+        <!-- /.card-body -->
+      </div>
+      <!-- /.card -->
+    </div>
+    <!-- /.col -->
   </div>
   <!-- /.row -->
 </section>

@@ -12,6 +12,7 @@ from endpoints.main import endpoints as main_pages
 from endpoints.notes import endpoints as note_pages
 from endpoints.user import endpoints as user_pages
 from endpoints.notifications import endpoints as notifications_pages
+from endpoints.workflow import endpoints as workflow_pages
 
 routes = [
     Route("/", main_pages.homepage, name="dashboard", methods=["GET", "POST"]),
@@ -108,6 +109,18 @@ routes = [
             ),
             Route(
                 "/user_search", endpoint=htmx_pages.user_search, methods=["GET", "POST"]
+            ),
+        ],
+        name="htmx",
+    ),
+    Mount(
+        "/workflow",
+        routes=[
+            Route(
+                "/task-list", endpoint=workflow_pages.task_index, methods=["GET", "POST"]
+            ),
+            Route(
+                "/task/{task_id}", endpoint=workflow_pages.task_id, methods=["GET", "POST"]
             ),
         ],
         name="htmx",
