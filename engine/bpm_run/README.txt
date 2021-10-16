@@ -1,6 +1,6 @@
 This is a distribution of
 
-       Camunda Platform v7.15.0
+       Camunda Platform v7.16.0
 
 visit
        http://docs.camunda.org/
@@ -15,7 +15,7 @@ License information can be found in the LICENSE file.
 The Camunda Platform includes libraries developed by third
 parties. For license and attribution notices for these libraries,
 please refer to the documentation that accompanies this distribution
-(see the LICENSE_BOOK-7.15.0 file).
+(see the LICENSE_BOOK-7.16.0 file).
 
 The packaged Apache Tomcat server is licensed under 
 the Apache License v2.0 license.
@@ -46,6 +46,6 @@ Contents:
 
 ==================
 
-Camunda Platform version: 7.15.0
+Camunda Platform version: 7.16.0
 
 =================

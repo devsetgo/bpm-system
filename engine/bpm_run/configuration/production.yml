@@ -45,19 +45,19 @@ camunda.bpm:
 server:
 # https://docs.camunda.org/manual/latest/user-guide/camunda-bpm-run/#https
 # do not use the provided certificate in production
-  # ssl:
-  #   key-store: classpath:keystore.p12
-  #   key-store-password: camunda
-  #   key-store-type: pkcs12
-  #   key-alias: camunda
-  #   key-password: camunda
-  # port: 8443
+  ssl:
+    key-store: classpath:keystore.p12
+    key-store-password: camunda
+    key-store-type: pkcs12
+    key-alias: camunda
+    key-password: camunda
+  port: 8443
 
 # https://docs.camunda.org/manual/latest/user-guide/security/#http-header-security-in-webapps
 # https://docs.camunda.org/manual/latest/webapps/shared-options/header-security/
   servlet.session.cookie:
     secure: true
-    # http-only: true
+    http-only: true
 
 # https://docs.camunda.org/manual/latest/user-guide/camunda-bpm-run/#logging
 # https://docs.camunda.org/manual/latest/user-guide/logging/#process-engine

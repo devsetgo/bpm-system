@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 2,
+  "components": [
+    {
+      "label": "Text Field",
+      "type": "textfield",
+      "id": "Field_1laoa70",
+      "key": "field_0nkr00a"
+    },
+    {
+      "action": "reset",
+      "label": "Reset",
+      "type": "button",
+      "id": "Field_0pqxnc0",
+      "key": "field_0h5m4ht"
+    }
+  ],
+  "type": "default",
+  "id": "Form_1uc6zlq",
+  "executionPlatform": "Camunda Platform",
+  "executionPlatformVersion": "7.15"
+}

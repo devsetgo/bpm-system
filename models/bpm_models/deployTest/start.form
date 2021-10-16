@@ -1,0 +1,79 @@
+{
+  "schemaVersion": 2,
+  "components": [
+    {
+      "label": "First Name",
+      "type": "textfield",
+      "id": "Field_0bcv6je",
+      "key": "firstName",
+      "validate": {
+        "required": true,
+        "minLength": 2,
+        "maxLength": 50
+      },
+      "description": "Your Given Name"
+    },
+    {
+      "label": "Last Name",
+      "type": "textfield",
+      "id": "Field_10ndmvd",
+      "key": "lastName",
+      "description": "Your surname",
+      "validate": {
+        "required": true,
+        "minLength": 2,
+        "maxLength": 50
+      }
+    },
+    {
+      "values": [
+        {
+          "label": "blue",
+          "value": "blue"
+        },
+        {
+          "label": "yellow",
+          "value": "yellow"
+        }
+      ],
+      "label": "Favorite Color",
+      "type": "radio",
+      "id": "Field_1s6zrme",
+      "key": "favoriteColor",
+      "validate": {
+        "required": false
+      },
+      "description": "Pick blue... :-)"
+    },
+    {
+      "values": [
+        {
+          "label": "Value",
+          "value": "value"
+        }
+      ],
+      "label": "Select",
+      "type": "select",
+      "id": "Field_0rlk98s",
+      "key": "field_0l2sd6p"
+    },
+    {
+      "action": "submit",
+      "label": "Submit",
+      "type": "button",
+      "id": "Field_1exmpe2",
+      "key": "field_0h2s6tn"
+    },
+    {
+      "action": "reset",
+      "label": "Reset Form",
+      "type": "button",
+      "id": "Field_1uge1g0",
+      "key": "field_07wsgc9"
+    }
+  ],
+  "type": "default",
+  "id": "startForm",
+  "executionPlatform": "Camunda Platform",
+  "executionPlatformVersion": "7.16"
+}

@@ -3,7 +3,12 @@
 # https://docs.camunda.org/manual/latest/user-guide/spring-boot-integration/configuration/#camunda-engine-properties
 
 camunda.bpm:
+  generic-properties:
+    properties:
+      initialize=telemetry: false
   history-level: FULL
+  history-level-default: FULL
+  default-number-of-retries: 10
   id-generator: strong
   auto-deployment-enabled: true
   filter:
@@ -36,4 +41,3 @@ spring.datasource:
 # https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#boot-features-spring-mvc-static-content
 spring.web.resources:
   static-locations: NULL
-
