@@ -1,0 +1,72 @@
+{
+  "schemaVersion": 2,
+  "components": [
+    {
+      "label": "Your request",
+      "type": "textfield",
+      "id": "Field_0l3b0yq",
+      "key": "request",
+      "validate": {
+        "required": true,
+        "minLength": 5,
+        "maxLength": 500
+      }
+    },
+    {
+      "values": [
+        {
+          "label": "admin",
+          "value": "admin"
+        },
+        {
+          "label": "mike",
+          "value": "mike"
+        },
+        {
+          "label": "sally",
+          "value": "sally"
+        }
+      ],
+      "label": "Approver",
+      "type": "select",
+      "id": "Field_0alj1ut",
+      "key": "approver",
+      "description": "Who to send for approval",
+      "validate": {
+        "required": true
+      }
+    },
+    {
+      "values": [
+        {
+          "label": "Yes",
+          "value": "yes"
+        },
+        {
+          "label": "No",
+          "value": "no"
+        }
+      ],
+      "label": "Do you approve?",
+      "type": "radio",
+      "id": "Field_08b7qu3",
+      "key": "approval",
+      "validate": {
+        "required": true
+      }
+    },
+    {
+      "label": "Approv/Reject Reason",
+      "type": "textfield",
+      "id": "Field_0jl368k",
+      "key": "reject",
+      "validate": {
+        "required": true,
+        "minLength": 4,
+        "maxLength": 500
+      }
+    }
+  ],
+  "type": "default",
+  "id": "simpleReview"
+}

@@ -21,11 +21,10 @@ camunda.bpm:
     email: something@example.com
   run:
 # https://docs.camunda.org/manual/latest/user-guide/camunda-bpm-run/#cross-origin-resource-sharing
+    auth.enabled: true
     cors:
       enabled: true
       allowed-origins: "*"
-
-    auth.enabled: true
   # webapp:
   #   authorization.enabled: true
 

@@ -58,18 +58,13 @@
       "key": "field_0l2sd6p"
     },
     {
-      "action": "submit",
-      "label": "Submit",
-      "type": "button",
-      "id": "Field_1exmpe2",
-      "key": "field_0h2s6tn"
-    },
-    {
-      "action": "reset",
-      "label": "Reset Form",
-      "type": "button",
-      "id": "Field_1uge1g0",
-      "key": "field_07wsgc9"
+      "label": "data_uuid",
+      "type": "textfield",
+      "id": "Field_1ecm2uh",
+      "key": "dataId",
+      "validate": {
+        "required": true
+      }
     }
   ],
   "type": "default",

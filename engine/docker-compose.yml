@@ -1,0 +1,51 @@
+version: "3.3"
+
+services:
+  bpm:
+    image: mikeryan56/bpm:latest
+    restart: always
+    ports:
+    - "8080"
+    environment:
+    - SPRING_DATASOURCE_URL:'jdbc:h2:./camunda-h2-test-production/process-engine;TRACE_LEVEL_FILE=0;DB_CLOSE_ON_EXIT=FALSE'
+    - SPRING_DATASOURCE_DRIVER-CLASS-NAME:'org.h2.Driver'
+    - SPRING_DATASOURCE_USERNAME:'sa'
+    - SPRING_DATASOURCE_PASSWORD:'sa'
+    # - DB_DRIVER=org.postgresql.Driver
+    # - DB_URL=jdbc:postgresql://localhost:5432/camunda-db
+    # - DB_USERNAME=camunda-user
+    # - DB_PASSWORD=your-password
+    # - REST_AUTH_ENABLED=true
+    # - ENABLE_PASSWORD_POLICY=true
+    # - APPLICATION_NAME=CAMUNDA-Engine
+    # - CAMUNDA_LOGGING_LEVEL=INFO
+    # - COOKIE_SECURE=true
+    # - COOKIE_HTTP_ONLY=true
+    # - AUTHORIZATION_ENABLED=true
+    #if using traefik
+    labels:
+    - "traefik.enable=true" # <== Enable traefik to proxy this container
+    - "traefik.http.routers.bpm-web.rule=Host(`bpm.devsetgo.com`)" # <== Your Domain Name goes here for the http rule
+    - "traefik.http.routers.bpm-web.entrypoints=web" # <== Defining the entrypoint for http, **ref: line 30
+    - "traefik.http.routers.bpm-web.middlewares=redirect@file" # <== This is a middleware to redirect to https
+    - "traefik.http.routers.bpm-secured.rule=Host(`bpm.devsetgo.com`)" # <== Your Domain Name for the https rule 
+    - "traefik.http.routers.bpm-secured.entrypoints=web-secured" # <== Defining entrypoint for https, **ref: line 31
+    - "traefik.http.routers.bpm-secured.tls.certresolver=mytlschallenge" # <== Defining certsresolvers for https
+    # healthcheck:
+    #   test: curl --fail -s http://localhost:8080/ || exit 1
+    #   interval: 1m
+    #   timeout: 10s
+    #   retries: 3
+    networks:
+      - web
+      - backend
+
+networks:
+  web:
+    external: true
+  backend:
+    external: true
+
+# volumes:
+#   bpm:
+#     external: false

@@ -1,40 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_17abrez" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="4.11.0" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.15.0">
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:bioc="http://bpmn.io/schema/bpmn/biocolor/1.0" xmlns:color="http://www.omg.org/spec/BPMN/non-normative/color/1.0" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_17abrez" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="4.11.1" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.15.0">
   <bpmn:process id="deployTest" name="Deploy Test" isExecutable="true">
-    <bpmn:startEvent id="StartEvent_1" camunda:formRef="start" camunda:initiator="requestor">
-      <bpmn:outgoing>Flow_0cnm1c9</bpmn:outgoing>
-    </bpmn:startEvent>
-    <bpmn:sequenceFlow id="Flow_0cnm1c9" sourceRef="StartEvent_1" targetRef="Gateway_0pz77ec" />
     <bpmn:sequenceFlow id="Flow_1ywxsx9" sourceRef="Gateway_0pz77ec" targetRef="taskOne" />
     <bpmn:sequenceFlow id="Flow_0fs7qi1" sourceRef="Gateway_0pz77ec" targetRef="taskTwo" />
     <bpmn:sequenceFlow id="Flow_16gg6tf" sourceRef="taskTwo" targetRef="Gateway_0aqb96k" />
     <bpmn:sequenceFlow id="Flow_14vdx6w" sourceRef="taskOne" targetRef="Gateway_0aqb96k" />
-    <bpmn:endEvent id="Event_1eixi4i">
+    <bpmn:endEvent id="Event_1eixi4i" name="End">
       <bpmn:incoming>Flow_0nlviha</bpmn:incoming>
     </bpmn:endEvent>
     <bpmn:sequenceFlow id="Flow_0nlviha" sourceRef="Gateway_0aqb96k" targetRef="Event_1eixi4i" />
-    <bpmn:userTask id="taskOne" name="Task One">
-      <bpmn:extensionElements>
-        <camunda:formData>
-          <camunda:formField id="favoriteColor" label="Favorite Color" type="enum">
-            <camunda:validation>
-              <camunda:constraint name="required" />
-            </camunda:validation>
-            <camunda:value id="blue" name="blue" />
-            <camunda:value id="yellow" name="yellow" />
-            <camunda:value id="green" name="green" />
-          </camunda:formField>
-        </camunda:formData>
-      </bpmn:extensionElements>
+    <bpmn:userTask id="taskOne" name="Task One" camunda:formKey="camunda-forms:deployment:taskOne.form">
       <bpmn:incoming>Flow_1ywxsx9</bpmn:incoming>
       <bpmn:outgoing>Flow_14vdx6w</bpmn:outgoing>
     </bpmn:userTask>
-    <bpmn:userTask id="taskTwo" name="Task Two">
+    <bpmn:userTask id="taskTwo" name="Task Two" camunda:formKey="camunda-forms:deployment:taskTwo.form">
       <bpmn:incoming>Flow_0fs7qi1</bpmn:incoming>
       <bpmn:outgoing>Flow_16gg6tf</bpmn:outgoing>
     </bpmn:userTask>
     <bpmn:parallelGateway id="Gateway_0pz77ec">
-      <bpmn:incoming>Flow_0cnm1c9</bpmn:incoming>
+      <bpmn:incoming>Flow_08yjpm4</bpmn:incoming>
       <bpmn:outgoing>Flow_1ywxsx9</bpmn:outgoing>
       <bpmn:outgoing>Flow_0fs7qi1</bpmn:outgoing>
     </bpmn:parallelGateway>
@@ -43,9 +27,17 @@
       <bpmn:incoming>Flow_14vdx6w</bpmn:incoming>
       <bpmn:outgoing>Flow_0nlviha</bpmn:outgoing>
     </bpmn:parallelGateway>
+    <bpmn:startEvent id="Event_18kex3r" name="Start Form" camunda:formKey="camunda-forms:deployment:start.form">
+      <bpmn:outgoing>Flow_08yjpm4</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_08yjpm4" sourceRef="Event_18kex3r" targetRef="Gateway_0pz77ec" />
   </bpmn:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="deployTest">
+      <bpmndi:BPMNEdge id="Flow_08yjpm4_di" bpmnElement="Flow_08yjpm4">
+        <di:waypoint x="198" y="117" />
+        <di:waypoint x="265" y="117" />
+      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0nlviha_di" bpmnElement="Flow_0nlviha">
         <di:waypoint x="575" y="230" />
         <di:waypoint x="632" y="230" />
@@ -68,15 +60,11 @@
         <di:waypoint x="315" y="117" />
         <di:waypoint x="370" y="117" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_0cnm1c9_di" bpmnElement="Flow_0cnm1c9">
-        <di:waypoint x="215" y="117" />
-        <di:waypoint x="265" y="117" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
-        <dc:Bounds x="179" y="99" width="36" height="36" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Event_1eixi4i_di" bpmnElement="Event_1eixi4i">
+      <bpmndi:BPMNShape id="Event_1eixi4i_di" bpmnElement="Event_1eixi4i" bioc:stroke="#e53935" bioc:fill="#ffcdd2" color:background-color="#ffcdd2" color:border-color="#e53935">
         <dc:Bounds x="632" y="212" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="640" y="255" width="20" height="14" />
+        </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_08v8mi9_di" bpmnElement="taskOne">
         <dc:Bounds x="370" y="77" width="100" height="80" />
@@ -89,6 +77,12 @@
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Gateway_1wy9275_di" bpmnElement="Gateway_0aqb96k">
         <dc:Bounds x="525" y="205" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_18kex3r_di" bpmnElement="Event_18kex3r" bioc:stroke="#43a047" bioc:fill="#c8e6c9" color:background-color="#c8e6c9" color:border-color="#43a047">
+        <dc:Bounds x="162" y="99" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="154" y="142" width="52" height="14" />
+        </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>

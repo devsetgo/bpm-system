@@ -1,0 +1,85 @@
+{
+  "schemaVersion": 2,
+  "components": [
+    {
+      "label": "First Name",
+      "type": "textfield",
+      "id": "Field_0bcv6je",
+      "key": "firstName",
+      "validate": {
+        "required": true,
+        "minLength": 2,
+        "maxLength": 50
+      },
+      "description": "Your Given Name"
+    },
+    {
+      "label": "Last Name",
+      "type": "textfield",
+      "id": "Field_10ndmvd",
+      "key": "lastName",
+      "description": "Your surname",
+      "validate": {
+        "required": true,
+        "minLength": 2,
+        "maxLength": 50
+      }
+    },
+    {
+      "values": [
+        {
+          "label": "blue",
+          "value": "blue"
+        },
+        {
+          "label": "yellow",
+          "value": "yellow"
+        }
+      ],
+      "label": "Favorite Color",
+      "type": "radio",
+      "id": "Field_1s6zrme",
+      "key": "favoriteColor",
+      "validate": {
+        "required": true
+      },
+      "description": "Pick blue... :-)"
+    },
+    {
+      "values": [
+        {
+          "label": "drop1",
+          "value": "drop1"
+        },
+        {
+          "label": "drop2",
+          "value": "drop2"
+        }
+      ],
+      "label": "DropDown",
+      "type": "select",
+      "id": "Field_0rlk98s",
+      "key": "dropDown1",
+      "validate": {
+        "required": true
+      },
+      "description": "Drop Down Selector"
+    },
+    {
+      "label": "Do you like the Checkbox?",
+      "type": "checkbox",
+      "id": "Field_1hpryot",
+      "key": "checkbox1"
+    },
+    {
+      "label": "dataId",
+      "type": "textfield",
+      "id": "Field_14jf6oc",
+      "key": "dataId"
+    }
+  ],
+  "type": "default",
+  "id": "taskOne",
+  "executionPlatform": "Camunda Platform",
+  "executionPlatformVersion": "7.16"
+}

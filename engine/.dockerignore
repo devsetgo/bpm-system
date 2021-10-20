@@ -1,0 +1,4 @@
+default_configurations/
+camunda-h2*
+logs/
+scripts/
