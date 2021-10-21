@@ -3,7 +3,12 @@
 {% block page_stylesheet %}
 <!-- DataTables -->
 <link rel="stylesheet" href="{{ url_for('static' , path='plugins/datatables-bs4/css/dataTables.bootstrap4.css') }}">
-<link rel="stylesheet" href="https://unpkg.com/@bpmn-io/form-js@0.4.4/dist/assets/form-js.css">
+<link rel="stylesheet" href="https://unpkg.com/@bpmn-io/form-js@0.5.1/dist/assets/form-js.css">
+<style>
+  #form {
+    max-width: 800px;
+  }
+</style>
 {% endblock %}
 {% block page_breadcrumb %} Task{% endblock %}
 {% block page_head_title %}Task{% endblock %}
@@ -18,7 +23,57 @@
       <div class="card card-primary">
         <div class="card-header"></div>
         <div class="card-body">
-          {{html_form.form|safe}}
+
+          {% if task_form.form_type == 'camunda-forms' %}
+          <form role="form">
+            <div id="form"></div>
+            <div class="card-footer">
+              <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+          </form>
+          {{task_form.cam_form|safe}}
+
+          <!--
+            add your form schema to this script tag
+            alternatively, load it asynchronously from anywhere
+          -->
+          <script type="application/form-schema">
+            {{task_form.cam_form|safe}}
+          </script>
+
+          <!--
+            required viewer script
+          -->
+          <script src="https://unpkg.com/@bpmn-io/form-js@0.5.1/dist/form-viewer.umd.js"></script>
+
+          <script>
+            const schema = JSON.parse(
+              document.querySelector('[type="application/form-schema"]').textContent
+            );
+
+            const container = document.querySelector('#form');
+
+            FormViewer.createForm({
+              container,
+              schema
+            });
+          </script>
+          {% endif %}
+
+          <!-- {
+            "schemaVersion": 1,
+            "exporter": {
+              "name": "form-js",
+              "version": "0.1.0"
+            },
+            "components": [
+              {
+                "type": "text",
+                "text": "# File an Invoice\n\n__Lorem ipsum dolor__ sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Arcu bibendum at [varius vel pharetra vel](http://foo) turpis nunc eget.\n\nAenean et tortor at risus. Ligula ullamcorper malesuada proin libero nunc consequat. Volutpat maecenas volutpat blandit aliquam etiam. Sodales neque sodales ut etiam sit amet nisl purus. Dictumst vestibulum rhoncus est pellentesque elit. \n\n# Another issue\n\n## Sub-heading\n\nArcu bibendum at varius vel pharetra vel turpis nunc eget.\n\n1. Scelerisque varius morbi enim nunc faucibus a. Senectus et netus et malesuada fames ac. \n2. Lorem sed risus ultricies tristique nulla aliquet. \n\nScelerisque felis imperdiet proin fermentum. \n\n* Purus semper eget duis at tellus at. \n* Imperdiet sed euismod nisi porta lorem mollis aliquam. \n* Dictum non consectetur a erat nam at lectus urna duis.\n\n\n## Images\n\n![some small image](https://via.placeholder.com/400x150)\n![ſome big image](https://via.placeholder.com/1000x150)"
+              }
+            ],
+            "type": "default"
+          } -->
         </div>
       </div>
     </div>
@@ -42,6 +97,7 @@
 <!-- DataTables -->
 <script src="{{ url_for('static' , path='plugins/datatables/jquery.dataTables.js') }}"></script>
 <script src="{{ url_for('static' , path='plugins/datatables-bs4/js/dataTables.bootstrap4.js') }}"></script>
+<script src="https://unpkg.com/@bpmn-io/form-js@0.5.1/dist/form-viewer.umd.js"></script>
 <!-- Load from unpkg -->
 
 <!-- AdminLTE App -->

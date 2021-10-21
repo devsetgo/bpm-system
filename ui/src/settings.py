@@ -10,7 +10,7 @@ environment variables.
 import secrets
 from functools import lru_cache
 
-from pydantic import BaseSettings, HttpUrl
+from pydantic import BaseSettings, HttpUrl, AnyUrl, SecretStr
 
 # from core.demo import create_demo_data
 
@@ -27,6 +27,11 @@ class Settings(BaseSettings):
     database_type: str = "sqlite"
     db_name: str = "sqlite_db/api.db"
     sqlalchemy_database_uri: str = "sqlite:///sqlite_db/api.db"
+    # Camunda Engine
+    camunda_engine_url: AnyUrl = "http://localhost:8080"
+    camunda_engine_user: str = "admin"
+    camunda_engine_password: SecretStr = "rules"
+    # App
     workers: int = None
     csrf_secret = secrets.token_hex(128)
     secret_key = secrets.token_hex(128)

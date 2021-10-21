@@ -117,10 +117,14 @@ routes = [
         "/workflow",
         routes=[
             Route(
-                "/task-list", endpoint=workflow_pages.task_index, methods=["GET", "POST"]
+                "/task-list",
+                endpoint=workflow_pages.task_index,
+                methods=["GET", "POST"],
             ),
             Route(
-                "/task/{task_id}", endpoint=workflow_pages.task_id, methods=["GET", "POST"]
+                "/task/{task_id}",
+                endpoint=workflow_pages.task_id,
+                methods=["GET", "POST"],
             ),
         ],
         name="htmx",
