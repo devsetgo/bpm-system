@@ -117,6 +117,16 @@ routes = [
         "/workflow",
         routes=[
             Route(
+                "/process-list",
+                endpoint=workflow_pages.process_index,
+                methods=["GET", "POST"],
+            ),
+            Route(
+                "/process-list/{proc_id}",
+                endpoint=workflow_pages.process_id,
+                methods=["GET", "POST"],
+            ),
+            Route(
                 "/task-list",
                 endpoint=workflow_pages.task_index,
                 methods=["GET", "POST"],

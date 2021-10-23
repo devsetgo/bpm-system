@@ -9,7 +9,13 @@
       </a>
       <ul class="nav nav-treeview">
         <li class="nav-item">
-          <a href="/workflow/task-list" class="nav-link active">
+          <a href="/workflow/process-list" class="nav-link {% if active=="process-list"%} active{%endif%}">
+            <i class="far fa-circle nav-icon"></i>
+            <p>Running Processes</p>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="/workflow/task-list" class="nav-link {% if active=="task-list"%} active{%endif%}">
             <i class="far fa-circle nav-icon"></i>
             <p>Task List</p>
           </a>
@@ -21,13 +27,13 @@
           </a> -->
         </li>
         <li class="nav-item">
-          <a href="/workflow/start" class="nav-link">
+          <a href="/workflow/start" class="nav-link {% if active=="workflow-start"%} active{%endif%}">
             <i class="far fa-circle nav-icon"></i>
             <p>Start Process</p>
           </a>
         </li>
         <li class="nav-item">
-          <a href="/history" class="nav-link">
+          <a href="/history" class="nav-link {% if active=="workflow-history"%} active{%endif%}">
             <i class="far fa-circle nav-icon"></i>
             <p>History</p>
           </a>

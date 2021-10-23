@@ -1,16 +1,19 @@
 {% extends "base.html" %}
-{% block page_title %}| DataTables{% endblock %}
+{% block page_title %}| Workflow{% endblock %}
 {% block page_stylesheet %}
 <!-- DataTables -->
 <link rel="stylesheet" href="{{ url_for('static' , path='plugins/datatables-bs4/css/dataTables.bootstrap4.css') }}">
 
 {% endblock %}
-{% block page_breadcrumb %} HTMX{% endblock %}
-{% block page_head_title %}HTMX Page{% endblock %}
+{% block page_breadcrumb %} Workflow{% endblock %}
+{% block page_head_title %}Workflow Page{% endblock %}
 {% block body %}
 <!-- Main content -->
 
 <section class="content">
+  <div class="row">
+    {{data}}
+  </div>
   <div class="row">
     <div class="col-12">
       <div class="card">
@@ -22,7 +25,9 @@
           <table id="example2" class="table table-bordered table-hover">
             <thead>
             <tr>
-              <th>Task Name</th>
+              <th>Business Key</th>
+              <th>Process Definition</th>
+              <th>x</th>
               <th>Assignee</th>
               <th>Follow Up Date</th>
               <th>Due Date</th>
@@ -33,8 +38,9 @@
             <tbody>
             <!-- Begin loop -->
             {% for d in data %}
-              <tr>
-              <td><a href="/workflow/task/{{d.id}}">{{d.name}}</a></td>
+              <td>{{d.businessKey}}</td>
+              <td>{{d.processDefinitionName}}</td>
+              <td><a href="/workflow/process/{{d.id}}">{{d.name}}</a></td>
               <td>{{d.assignee}}</td>
               <td>{{d.sim_follow_up}}</td>
               <td>{{d.sim_due}}</td>
@@ -46,12 +52,14 @@
             </tbody>
             <tfoot>
             <tr>
-              <th>User Name</th>
-              <th>Reviewed</th>
-              <th>Rejected</th>
-              <th>Admin</th>
+              <th>Business Key</th>
+              <th>Process Definition</th>
+              <th>Task Name</th>
+              <th>Assignee</th>
+              <th>Follow Up Date</th>
+              <th>Due Date</th>
               <th>Date Created</th>
-              <th>Date Updated</th>
+              <th>Priority</th>
             </tr>
             </tfoot>
           </table>

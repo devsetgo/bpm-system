@@ -72,7 +72,7 @@
                     <div class="card-body">
 
                       {% if task_data.form_data.form_type == 'camunda-forms' %}
-                      <form action="/workflow/task/{{task_data.task_info.id}}" method="POST">
+                      <form role="form">
                         <div id="form"></div>
                         <div class="card-footer">
                           <button type="submit" class="btn btn-primary">Submit</button>
@@ -91,7 +91,7 @@
                         required viewer script
                       -->
                       <script src="https://unpkg.com/@bpmn-io/form-js@0.5.1/dist/form-viewer.umd.js"></script>
-                      
+
                       <script>
                         const schema = JSON.parse(
                           document.querySelector('[type="application/form-schema"]').textContent
