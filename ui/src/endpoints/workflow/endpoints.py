@@ -8,8 +8,8 @@ from pydantic.typing import resolve_annotations
 from starlette.applications import Starlette
 from starlette.responses import JSONResponse
 from core import login_required
-from endpoints.workflow.form_processor import (
-    process_form_variables,
+from endpoints.workflow.workflow_processor import (
+    get_task_data,
     determine_form_type,
 )
 
@@ -79,22 +79,17 @@ async def task_index(request):
 async def task_id(request):
 
     task_id = request.path_params["task_id"]
-    r_task = await client.get(f"{camunda_url}/task/{task_id}", auth=cam_auth)
-    task_data = r_task.json()
-    form_type = await determine_form_type(task_data=task_data)
+    task_data=await get_task_data(task_id=task_id)
 
-    # r_var = await client.get(f"{camunda_url}/task/{task_id}/variables", auth=cam_auth)
-    # task_var = r_var.json()
-    # task_form = {"form": task_form, "variables": task_var}
-    # html_form = process_form_variables(html=task_form, variables=task_var)
-    # print(html_form)
+    # form_type = await determine_form_type(task_data=task_data)
+
     template = f"{page_url}/task.html"
     context = {
         "request": request,
         "active": "task-index",
         "section": section,
         "task_data": task_data,
-        "task_form": form_type,
+        # "task_form": form_type,
         # "task_var": task_var,
         "task_id": task_id,
         "process_id": "X",

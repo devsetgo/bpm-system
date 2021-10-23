@@ -11,72 +11,269 @@
 </style>
 {% endblock %}
 {% block page_breadcrumb %} Task{% endblock %}
-{% block page_head_title %}Task{% endblock %}
+{% block page_head_title %}Task: {{task_data.task_info.name}}{% endblock %}
 {% block body %}
 <!-- Main content -->
 
 <section class="content">
-  <div class="row">{{task_data}}</div>
-
   <div class="row">
-    <div class="col-md-12">
-      <div class="card card-primary">
-        <div class="card-header"></div>
-        <div class="card-body">
 
-          {% if task_form.form_type == 'camunda-forms' %}
-          <form role="form">
-            <div id="form"></div>
-            <div class="card-footer">
-              <button type="submit" class="btn btn-primary">Submit</button>
+    <div class="col-12">
+      <!-- Widget: user widget style 2 -->
+      <div class="card card-widget widget-user-2">
+        <div class="card-header">
+          <h3 class="card-title">Task:<b> {{task_data.task_info.name}}</b></h3>
+
+          <div class="card-tools">
+            <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
+            </button>
+          </div>
+          <!-- /.card-tools -->
+        </div>
+        <!-- Add the bg color to the header using any of the bg-* classes -->
+
+        <div class="card-footer p-0">
+          <div class="card card-primary card-outline card-tabs">
+            <div class="card-header p-0 pt-1 border-bottom-0">
+              <ul class="nav nav-tabs" id="custom-tabs-two-tab" role="tablist">
+                <li class="nav-item">
+                  <a class="nav-link active" id="custom-tabs-two-form-tab" data-toggle="pill"
+                    href="#custom-tabs-two-form" role="tab" aria-controls="custom-tabs-two-form"
+                    aria-selected="true">Form</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" id="custom-tabs-two-information-tab" data-toggle="pill"
+                    href="#custom-tabs-two-information" role="tab" aria-controls="custom-tabs-two-information"
+                    aria-selected="false">Information</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" id="custom-tabs-two-comments-tab" data-toggle="pill"
+                    href="#custom-tabs-two-comments" role="tab" aria-controls="custom-tabs-two-comments"
+                    aria-selected="false">Comments</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" id="custom-tabs-two-attachment-tab" data-toggle="pill"
+                    href="#custom-tabs-two-attachment" role="tab" aria-controls="custom-tabs-two-attachment"
+                    aria-selected="false">Attachment</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" id="custom-tabs-two-workflow-tab" data-toggle="pill"
+                    href="#custom-tabs-two-workflow" role="tab" aria-controls="custom-tabs-two-workflow"
+                    aria-selected="false">Workflow</a>
+                </li>
+              </ul>
             </div>
-          </form>
-          {{task_form.cam_form|safe}}
+            <div class="card-body col-12">
+              <div class="tab-content" id="custom-tabs-two-tabContent">
+                <div class="tab-pane fade show active" id="custom-tabs-two-form" role="tabpanel"
+                  aria-labelledby="custom-tabs-two-form-tab">
+                  <div class="card card-primary">
+                    <div class="card-header"></div>
+                    <div class="card-body">
 
-          <!--
-            add your form schema to this script tag
-            alternatively, load it asynchronously from anywhere
-          -->
-          <script type="application/form-schema">
-            {{task_form.cam_form|safe}}
-          </script>
+                      {% if task_data.form_data.form_type == 'camunda-forms' %}
+                      <form role="form">
+                        <div id="form"></div>
+                        <div class="card-footer">
+                          <button type="submit" class="btn btn-primary">Submit</button>
+                        </div>
+                      </form>
 
-          <!--
-            required viewer script
-          -->
-          <script src="https://unpkg.com/@bpmn-io/form-js@0.5.1/dist/form-viewer.umd.js"></script>
+                      <!--
+                        add your form schema to this script tag
+                        alternatively, load it asynchronously from anywhere
+                      -->
+                      <script type="application/form-schema">
+                        {{task_data.form_data.cam_form|safe}}
+                      </script>
 
-          <script>
-            const schema = JSON.parse(
-              document.querySelector('[type="application/form-schema"]').textContent
-            );
+                      <!--
+                        required viewer script
+                      -->
+                      <script src="https://unpkg.com/@bpmn-io/form-js@0.5.1/dist/form-viewer.umd.js"></script>
 
-            const container = document.querySelector('#form');
+                      <script>
+                        const schema = JSON.parse(
+                          document.querySelector('[type="application/form-schema"]').textContent
+                        );
 
-            FormViewer.createForm({
-              container,
-              schema
-            });
-          </script>
-          {% endif %}
+                        const container = document.querySelector('#form');
 
-          <!-- {
-            "schemaVersion": 1,
-            "exporter": {
-              "name": "form-js",
-              "version": "0.1.0"
-            },
-            "components": [
-              {
-                "type": "text",
-                "text": "# File an Invoice\n\n__Lorem ipsum dolor__ sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Arcu bibendum at [varius vel pharetra vel](http://foo) turpis nunc eget.\n\nAenean et tortor at risus. Ligula ullamcorper malesuada proin libero nunc consequat. Volutpat maecenas volutpat blandit aliquam etiam. Sodales neque sodales ut etiam sit amet nisl purus. Dictumst vestibulum rhoncus est pellentesque elit. \n\n# Another issue\n\n## Sub-heading\n\nArcu bibendum at varius vel pharetra vel turpis nunc eget.\n\n1. Scelerisque varius morbi enim nunc faucibus a. Senectus et netus et malesuada fames ac. \n2. Lorem sed risus ultricies tristique nulla aliquet. \n\nScelerisque felis imperdiet proin fermentum. \n\n* Purus semper eget duis at tellus at. \n* Imperdiet sed euismod nisi porta lorem mollis aliquam. \n* Dictum non consectetur a erat nam at lectus urna duis.\n\n\n## Images\n\n![some small image](https://via.placeholder.com/400x150)\n![ſome big image](https://via.placeholder.com/1000x150)"
-              }
-            ],
-            "type": "default"
-          } -->
+                        FormViewer.createForm({
+                          container,
+                          schema
+                        });
+                      </script>
+                      {% elif task_data.form_data.form_type == 'embedded' %}
+                      bob
+                      {% else %}
+                      rendered form
+                      {% endif %}
+
+                      <!-- {
+                        "schemaVersion": 1,
+                        "exporter": {
+                          "name": "form-js",
+                          "version": "0.1.0"
+                        },
+                        "components": [
+                          {
+                            "type": "text",
+                            "text": "# File an Invoice\n\n__Lorem ipsum dolor__ sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Arcu bibendum at [varius vel pharetra vel](http://foo) turpis nunc eget.\n\nAenean et tortor at risus. Ligula ullamcorper malesuada proin libero nunc consequat. Volutpat maecenas volutpat blandit aliquam etiam. Sodales neque sodales ut etiam sit amet nisl purus. Dictumst vestibulum rhoncus est pellentesque elit. \n\n# Another issue\n\n## Sub-heading\n\nArcu bibendum at varius vel pharetra vel turpis nunc eget.\n\n1. Scelerisque varius morbi enim nunc faucibus a. Senectus et netus et malesuada fames ac. \n2. Lorem sed risus ultricies tristique nulla aliquet. \n\nScelerisque felis imperdiet proin fermentum. \n\n* Purus semper eget duis at tellus at. \n* Imperdiet sed euismod nisi porta lorem mollis aliquam. \n* Dictum non consectetur a erat nam at lectus urna duis.\n\n\n## Images\n\n![some small image](https://via.placeholder.com/400x150)\n![ſome big image](https://via.placeholder.com/1000x150)"
+                          }
+                        ],
+                        "type": "default"
+                      } -->
+                    </div>
+                  </div>
+                </div>
+                <div class="tab-pane fade" id="custom-tabs-two-information" role="tabpanel"
+                  aria-labelledby="custom-tabs-two-information-tab">
+                  <div class="card card-primary">
+                    <div class="card-header"></div>
+                    <div class="card-body">
+                      <ul class="nav nav-pills">
+                        <li class="nav-item">
+                          <b>Process Definition:</b> <a
+                            href="/workflow/process-id/{{task_data.task_info.processInstanceId}}">
+                            {{task_data.task_info.processDefinitionName}}</a>
+                        </li>
+                        <li class="nav-item">
+                          <span class="far fa-trash-alt"><b>Description:</b></span> {{task_data.task_info.description}}
+                        </li>
+                        <li class="nav-item">
+                          <b>Priority:</b> {{task_data.task_info.priority}}
+                        </li>
+                        <li class="nav-item">
+                          <b>Due Date:</b> {{task_data.task_info.simple_due}}
+                        </li>
+                        <li class="nav-item">
+                          <b>Follow-up Date:</b> {{task_data.task_info.simple_followUp}}
+                        </li>
+                        <li class="nav-item">
+                          <b>Created Date:</b> {{task_data.task_info.simple_created}}
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+                <div class="tab-pane fade" id="custom-tabs-two-comments" role="tabpanel"
+                  aria-labelledby="custom-tabs-two-comments-tab">
+                  <div class="card card-primary">
+                    <div class="card-header"></div>
+                    <div class="card-body">
+                      Morbi turpis dolor, vulputate vitae felis non, tincidunt congue mauris. Phasellus volutpat augue
+                      id mi
+                      placerat mollis. Vivamus faucibus eu massa eget condimentum. Fusce nec hendrerit sem, ac tristique
+                      nulla. Integer vestibulum orci odio. Cras nec augue ipsum. Suspendisse ut velit condimentum,
+                      mattis urna
+                      a, malesuada nunc. Curabitur eleifend facilisis velit finibus tristique. Nam vulputate, eros non
+                      luctus
+                      efficitur, ipsum odio volutpat massa, sit amet sollicitudin est libero sed ipsum. Nulla lacinia,
+                      ex
+                      vitae gravida fermentum, lectus ipsum gravida arcu, id fermentum metus arcu vel metus. Curabitur
+                      eget
+                      sem eu risus tincidunt eleifend ac ornare magna.
+                    </div>
+                  </div>
+                </div>
+                <div class="tab-pane fade" id="custom-tabs-two-attachment" role="tabpanel"
+                aria-labelledby="custom-tabs-two-attachment-tab">
+                <div class="card card-primary">
+                  <div class="card-header"></div>
+                  <div class="card-body">
+                    Morbi turpis dolor, vulputate vitae felis non, tincidunt congue mauris. Phasellus volutpat augue
+                    id mi
+                    placerat mollis. Vivamus faucibus eu massa eget condimentum. Fusce nec hendrerit sem, ac tristique
+                    nulla. Integer vestibulum orci odio. Cras nec augue ipsum. Suspendisse ut velit condimentum,
+                    mattis urna
+                    a, malesuada nunc. Curabitur eleifend facilisis velit finibus tristique. Nam vulputate, eros non
+                    luctus
+                    efficitur, ipsum odio volutpat massa, sit amet sollicitudin est libero sed ipsum. Nulla lacinia,
+                    ex
+                    vitae gravida fermentum, lectus ipsum gravida arcu, id fermentum metus arcu vel metus. Curabitur
+                    eget
+                    sem eu risus tincidunt eleifend ac ornare magna.
+                  </div>
+                </div>
+              </div>
+                <div class="tab-pane fade" id="custom-tabs-two-workflow" role="tabpanel"
+                  aria-labelledby="custom-tabs-two-workflow-tab">
+                  <div class="card card-primary">
+                    <div class="card-header"></div>
+                    <div class="card-body">
+
+                      <!-- viewer distro (with pan and zoom) -->
+                      <script src="https://unpkg.com/bpmn-js@8.8.2/dist/bpmn-navigated-viewer.development.js"></script>
+
+                      <!-- needed for this example only -->
+                      <script src="https://unpkg.com/jquery@3.3.1/dist/jquery.js"></script>
+                      <div class="callout callout-info" id="canvas"></div>
+                      <!-- 'https://cdn.staticaly.com/gh/bpmn-io/bpmn-js-examples/dfceecba/starter/diagram.bpmn' -->
+                      <script>
+
+                        var diagramUrl = 'https://cdn.staticaly.com/gh/bpmn-io/bpmn-js-examples/dfceecba/starter/diagram.bpmn';
+
+                        // viewer instance
+                        var bpmnViewer = new BpmnJS({
+                          container: '#canvas'
+                        });
+
+
+                        /**
+                         * Open diagram in our viewer instance.
+                         *
+                         * @param {String} bpmnXML diagram to display
+                         */
+                        async function openDiagram(bpmnXML) {
+
+                          // import diagram
+                          try {
+
+                            await bpmnViewer.importXML(bpmnXML);
+
+                            // access viewer components
+                            var canvas = bpmnViewer.get('canvas');
+                            var overlays = bpmnViewer.get('overlays');
+
+
+                            // zoom to fit full viewport
+                            canvas.zoom('fit-viewport');
+
+                            // attach an overlay to a node
+                            overlays.add('SCAN_OK', 'note', {
+                              position: {
+                                bottom: 0,
+                                right: 0
+                              },
+                              html: '<div class="diagram-note">Mixed up the labels?</div>'
+                            });
+
+                            // add marker
+                            canvas.addMarker('SCAN_OK', 'needs-discussion');
+                          } catch (err) {
+
+                            console.error('could not import BPMN 2.0 diagram', err);
+                          }
+                        }
+
+
+                        // load external diagram file via AJAX and open it
+                        $.get(diagramUrl, openDiagram, 'text');
+                      </script>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- /.card -->
+          </div>
         </div>
       </div>
+      <!-- /.widget-user -->
     </div>
+    <!-- ./row -->
+
   </div>
 </section>
 <!-- /.content -->
