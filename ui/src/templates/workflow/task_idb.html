@@ -68,12 +68,18 @@
                 <div class="tab-pane fade show active" id="custom-tabs-two-form" role="tabpanel"
                   aria-labelledby="custom-tabs-two-form-tab">
                   <div class="card card-primary">
-                    <div class="card-header"></div>
+                    <div class="card-header">Form:<b> {{task_data.task_info.name}} <button type="button"
+                          class="btn btn-secondary float-right" data-toggle="modal" data-target="#modal-secondary">
+                          Instructions
+                        </button></div>
                     <div class="card-body">
 
                       {% if task_data.form_data.form_type == 'camunda-forms' %}
                       <form action="/workflow/task/{{task_data.task_info.id}}" method="POST">
                         <div id="form"></div>
+                        <div>
+                          <input type='text' id="something" required>
+                        </div>
                         <div class="card-footer">
                           <button type="submit" class="btn btn-primary">Submit</button>
                         </div>
@@ -91,7 +97,6 @@
                         required viewer script
                       -->
                       <script src="https://unpkg.com/@bpmn-io/form-js@0.5.1/dist/form-viewer.umd.js"></script>
-                      
                       <script>
                         const schema = JSON.parse(
                           document.querySelector('[type="application/form-schema"]').textContent
@@ -178,25 +183,25 @@
                   </div>
                 </div>
                 <div class="tab-pane fade" id="custom-tabs-two-attachment" role="tabpanel"
-                aria-labelledby="custom-tabs-two-attachment-tab">
-                <div class="card card-primary">
-                  <div class="card-header"></div>
-                  <div class="card-body">
-                    Morbi turpis dolor, vulputate vitae felis non, tincidunt congue mauris. Phasellus volutpat augue
-                    id mi
-                    placerat mollis. Vivamus faucibus eu massa eget condimentum. Fusce nec hendrerit sem, ac tristique
-                    nulla. Integer vestibulum orci odio. Cras nec augue ipsum. Suspendisse ut velit condimentum,
-                    mattis urna
-                    a, malesuada nunc. Curabitur eleifend facilisis velit finibus tristique. Nam vulputate, eros non
-                    luctus
-                    efficitur, ipsum odio volutpat massa, sit amet sollicitudin est libero sed ipsum. Nulla lacinia,
-                    ex
-                    vitae gravida fermentum, lectus ipsum gravida arcu, id fermentum metus arcu vel metus. Curabitur
-                    eget
-                    sem eu risus tincidunt eleifend ac ornare magna.
+                  aria-labelledby="custom-tabs-two-attachment-tab">
+                  <div class="card card-primary">
+                    <div class="card-header"></div>
+                    <div class="card-body">
+                      Morbi turpis dolor, vulputate vitae felis non, tincidunt congue mauris. Phasellus volutpat augue
+                      id mi
+                      placerat mollis. Vivamus faucibus eu massa eget condimentum. Fusce nec hendrerit sem, ac tristique
+                      nulla. Integer vestibulum orci odio. Cras nec augue ipsum. Suspendisse ut velit condimentum,
+                      mattis urna
+                      a, malesuada nunc. Curabitur eleifend facilisis velit finibus tristique. Nam vulputate, eros non
+                      luctus
+                      efficitur, ipsum odio volutpat massa, sit amet sollicitudin est libero sed ipsum. Nulla lacinia,
+                      ex
+                      vitae gravida fermentum, lectus ipsum gravida arcu, id fermentum metus arcu vel metus. Curabitur
+                      eget
+                      sem eu risus tincidunt eleifend ac ornare magna.
+                    </div>
                   </div>
                 </div>
-              </div>
                 <div class="tab-pane fade" id="custom-tabs-two-workflow" role="tabpanel"
                   aria-labelledby="custom-tabs-two-workflow-tab">
                   <div class="card card-primary">
@@ -279,7 +284,26 @@
 <!-- /.content -->
 </div>
 <!-- /.content-wrapper -->
-
+<div class="modal fade" id="modal-secondary">
+  <div class="modal-dialog">
+    <div class="modal-content bg-secondary">
+      <div class="modal-header">
+        <h4 class="modal-title">Secondary Modal</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span></button>
+      </div>
+      <div class="modal-body">
+        <p>One fine body&hellip;</p>
+      </div>
+      <div class="modal-footer justify-content-between">
+        <button type="button" class="btn btn-outline-light" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
 {% endblock %}
 
 {% block page_sidebar_content %}
@@ -294,8 +318,9 @@
 <!-- DataTables -->
 <script src="{{ url_for('static' , path='plugins/datatables/jquery.dataTables.js') }}"></script>
 <script src="{{ url_for('static' , path='plugins/datatables-bs4/js/dataTables.bootstrap4.js') }}"></script>
-<script src="https://unpkg.com/@bpmn-io/form-js@0.5.1/dist/form-viewer.umd.js"></script>
-<!-- Load from unpkg -->
+
+
+
 
 <!-- AdminLTE App -->
 

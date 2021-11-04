@@ -11,8 +11,13 @@ from core import login_required
 
 from resources import templates
 from settings import config_settings
-from endpoints.workflow.workflow_common import extend_data_dict,extend_data_list,get_task_bpmn
+from endpoints.workflow.workflow_common import (
+    extend_data_dict,
+    extend_data_list,
+    get_task_bpmn,
+)
 from endpoints.workflow.task_processor import get_task_data
+
 cam_auth = (
     config_settings.camunda_engine_user,
     config_settings.camunda_engine_password.get_secret_value(),
@@ -56,7 +61,7 @@ async def process_index(request):
         logger.info("page accessed: /workflow/system")
         return templates.TemplateResponse(template, context)
     else:
-        
+
         process_data = r.json()
         # print(process_data)
 
@@ -67,7 +72,6 @@ async def process_index(request):
             "active": "process-list",
             "section": section,
             "data": extended,
-            
         }
         logger.critical(context)
         logger.info("page accessed: /notes")
@@ -115,7 +119,6 @@ async def process_id(request):
         "active": "process-list",
         "section": section,
         "data": task_data,
-        
     }
     logger.critical(context)
     logger.info("page accessed: /notes")
@@ -163,7 +166,6 @@ async def task_index(request):
         "active": "task-list",
         "section": section,
         "data": data,
-        
     }
     logger.critical(context)
     logger.info("page accessed: /notes")
@@ -177,11 +179,11 @@ async def task_id(request):
     if request.method == "POST":
         form = await request.body()
         submit_response = await task_post(data=form)
-    task_data=await get_task_data(task_id=task_id)
+    task_data = await get_task_data(task_id=task_id)
 
     # form_type = await determine_form_type(task_data=task_data)
-    form=None
-    template = f"{page_url}/task.html"
+    form = None
+    template = f"{page_url}/task_id.html"
     context = {
         "request": request,
         "active": "task-list",
@@ -201,6 +203,7 @@ async def task_id(request):
     logger.info("page accessed: /notes")
     return templates.TemplateResponse(template, context)
 
-async def task_post(data:dict):
+
+async def task_post(data: dict):
     print(data)
     # pass

@@ -104,6 +104,13 @@ user_login_failures = Table(
     Column("is_active", Boolean, index=True),
 )
 
+wf_keys = Table(
+    "wf_keys",
+    metadata,
+    Column("key", String, index=True, primary_key=True),
+    Column("date_created", DateTime),
+)
+
 notes = Table(
     "notes",
     metadata,
