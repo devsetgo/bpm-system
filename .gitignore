@@ -1,3 +1,6 @@
+# Project ignore
+__bpm
+
 # Byte-compiled / optimized / DLL files
 _venv/
 __pycache__/
