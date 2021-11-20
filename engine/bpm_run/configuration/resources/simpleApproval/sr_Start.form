@@ -35,38 +35,8 @@
       "validate": {
         "required": true
       }
-    },
-    {
-      "label": "Approv/Reject Reason",
-      "type": "textfield",
-      "id": "Field_0jl368k",
-      "key": "reject",
-      "validate": {
-        "required": true,
-        "minLength": 4,
-        "maxLength": 500
-      }
-    },
-    {
-      "values": [
-        {
-          "label": "Yes",
-          "value": "yes"
-        },
-        {
-          "label": "No",
-          "value": "no"
-        }
-      ],
-      "label": "Cancel Request",
-      "type": "radio",
-      "id": "Field_08b7qu3",
-      "key": "cancelation",
-      "validate": {
-        "required": true
-      }
     }
   ],
   "type": "default",
-  "id": "simpleReviewRejection"
+  "id": "sr_Start"
 }

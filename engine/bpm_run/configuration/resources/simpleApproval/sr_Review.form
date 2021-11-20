@@ -2,39 +2,23 @@
   "schemaVersion": 2,
   "components": [
     {
+      "label": "Approver",
+      "type": "textfield",
+      "id": "Field_1czofrw",
+      "key": "field_0rbgfc2",
+      "disabled": true
+    },
+    {
       "label": "Your request",
       "type": "textfield",
       "id": "Field_0l3b0yq",
       "key": "request",
       "validate": {
-        "required": true,
+        "required": false,
         "minLength": 5,
         "maxLength": 500
-      }
-    },
-    {
-      "values": [
-        {
-          "label": "admin",
-          "value": "admin"
-        },
-        {
-          "label": "mike",
-          "value": "mike"
-        },
-        {
-          "label": "sally",
-          "value": "sally"
-        }
-      ],
-      "label": "Approver",
-      "type": "select",
-      "id": "Field_0alj1ut",
-      "key": "approver",
-      "description": "Who to send for approval",
-      "validate": {
-        "required": true
-      }
+      },
+      "disabled": true
     },
     {
       "values": [
@@ -68,5 +52,5 @@
     }
   ],
   "type": "default",
-  "id": "simpleReview"
+  "id": "sr_Review"
 }

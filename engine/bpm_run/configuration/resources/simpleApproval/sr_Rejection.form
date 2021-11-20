@@ -2,6 +2,18 @@
   "schemaVersion": 2,
   "components": [
     {
+      "label": "Approv/Reject Reason",
+      "type": "textfield",
+      "id": "Field_0jl368k",
+      "key": "reject",
+      "validate": {
+        "required": true,
+        "minLength": 4,
+        "maxLength": 500
+      },
+      "disabled": true
+    },
+    {
       "label": "Your request",
       "type": "textfield",
       "id": "Field_0l3b0yq",
@@ -35,8 +47,27 @@
       "validate": {
         "required": true
       }
+    },
+    {
+      "values": [
+        {
+          "label": "Yes",
+          "value": "yes"
+        },
+        {
+          "label": "No",
+          "value": "no"
+        }
+      ],
+      "label": "Cancel Request",
+      "type": "radio",
+      "id": "Field_08b7qu3",
+      "key": "cancelation",
+      "validate": {
+        "required": true
+      }
     }
   ],
   "type": "default",
-  "id": "simpleStart"
+  "id": "sr_Rejection"
 }

@@ -1,17 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_06ihsyk" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="4.11.1" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.15.0">
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_06ihsyk" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="4.12.0-nightly.20211106" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.15.0">
   <bpmn:process id="simpleRequest" name="Simple Request" isExecutable="true">
-    <bpmn:startEvent id="start" name="Start Form" camunda:formKey="camunda-forms:deployment:/simpleApproval/simpleStart.form" camunda:initiator="requestor">
+    <bpmn:startEvent id="start" name="Start Form" camunda:formRef="sr_Start" camunda:formRefBinding="deployment" camunda:initiator="requestor">
       <bpmn:documentation>Request approval from a user</bpmn:documentation>
       <bpmn:outgoing>Flow_0pubklc</bpmn:outgoing>
     </bpmn:startEvent>
     <bpmn:sequenceFlow id="Flow_0pubklc" sourceRef="start" targetRef="reviewForApproval" />
     <bpmn:endEvent id="Event_10nxl2b" name="end">
-      <bpmn:incoming>Flow_1yok6ut</bpmn:incoming>
-      <bpmn:incoming>Flow_1hh1k16</bpmn:incoming>
+      <bpmn:incoming>Flow_1o1tfef</bpmn:incoming>
     </bpmn:endEvent>
     <bpmn:sequenceFlow id="Flow_1cvtjof" sourceRef="reviewForApproval" targetRef="Gateway_1lcfrw3" />
-    <bpmn:userTask id="reviewForApproval" name="Review for Approval" camunda:formKey="camunda-forms:deployment:/simpleApproval/simpleReview.form" camunda:assignee="${approver}" camunda:dueDate="${dateTime().plusDays(5).toDate()}" camunda:followUpDate="${dateTime().plusDays(3).toDate()}" camunda:priority="50">
+    <bpmn:userTask id="reviewForApproval" name="Review for Approval" camunda:formRef="sr_Review" camunda:formRefBinding="deployment" camunda:assignee="${approver}" camunda:dueDate="${dateTime().plusDays(5).toDate()}" camunda:followUpDate="${dateTime().plusDays(3).toDate()}" camunda:priority="50">
       <bpmn:documentation>Review the request by user</bpmn:documentation>
       <bpmn:incoming>Flow_0pubklc</bpmn:incoming>
       <bpmn:incoming>Flow_0lycfh8</bpmn:incoming>
@@ -22,7 +21,12 @@
       <bpmn:outgoing>Flow_1yok6ut</bpmn:outgoing>
       <bpmn:outgoing>Flow_0sycism</bpmn:outgoing>
     </bpmn:exclusiveGateway>
-    <bpmn:sequenceFlow id="Flow_1yok6ut" name="Approved" sourceRef="Gateway_1lcfrw3" targetRef="Event_10nxl2b">
+    <bpmn:sequenceFlow id="Flow_1yok6ut" name="Approved" sourceRef="Gateway_1lcfrw3" targetRef="Gateway_0p3pk3d">
+      <bpmn:extensionElements>
+        <camunda:properties>
+          <camunda:property name="processStatus" value="Review Approved" />
+        </camunda:properties>
+      </bpmn:extensionElements>
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${approval=='yes'}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="Flow_0sycism" name="Send for Review" sourceRef="Gateway_1lcfrw3" targetRef="userReviewRejection" />
@@ -32,32 +36,64 @@
       <bpmn:outgoing>Flow_0lycfh8</bpmn:outgoing>
     </bpmn:exclusiveGateway>
     <bpmn:sequenceFlow id="Flow_0wcmq9h" sourceRef="userReviewRejection" targetRef="Gateway_0u9v31c" />
-    <bpmn:sequenceFlow id="Flow_1hh1k16" name="Cancel Request" sourceRef="Gateway_0u9v31c" targetRef="Event_10nxl2b">
+    <bpmn:sequenceFlow id="Flow_1hh1k16" name="Cancel Request" sourceRef="Gateway_0u9v31c" targetRef="Gateway_0p3pk3d">
+      <bpmn:extensionElements>
+        <camunda:properties>
+          <camunda:property name="processStatus" value="cancelled by user" />
+        </camunda:properties>
+      </bpmn:extensionElements>
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${cancelation=='yes'}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="Flow_0lycfh8" sourceRef="Gateway_0u9v31c" targetRef="reviewForApproval" />
-    <bpmn:userTask id="userReviewRejection" name="User Review Rejection" camunda:formKey="camunda-forms:deployment:/simpleApproval/simpleReviewRejection.form" camunda:assignee="${requestor}" camunda:dueDate="${dateTime().plusDays(3).toDate()}" camunda:followUpDate="${dateTime().plusDays(2).toDate()}" camunda:priority="75">
+    <bpmn:userTask id="userReviewRejection" name="User Review Rejection" camunda:formRef="sr_Rejection" camunda:formRefBinding="deployment" camunda:assignee="${requestor}" camunda:dueDate="${dateTime().plusDays(3).toDate()}" camunda:followUpDate="${dateTime().plusDays(2).toDate()}" camunda:priority="75">
       <bpmn:documentation>Review rejection by reviewer</bpmn:documentation>
       <bpmn:incoming>Flow_0sycism</bpmn:incoming>
       <bpmn:outgoing>Flow_0wcmq9h</bpmn:outgoing>
     </bpmn:userTask>
+    <bpmn:exclusiveGateway id="Gateway_0p3pk3d">
+      <bpmn:incoming>Flow_1yok6ut</bpmn:incoming>
+      <bpmn:incoming>Flow_1hh1k16</bpmn:incoming>
+      <bpmn:outgoing>Flow_1pv15bz</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="Flow_1pv15bz" sourceRef="Gateway_0p3pk3d" targetRef="statusNotification" />
+    <bpmn:sequenceFlow id="Flow_1o1tfef" sourceRef="statusNotification" targetRef="Event_10nxl2b" />
+    <bpmn:serviceTask id="statusNotification" name="Status Notification" camunda:asyncBefore="true" camunda:type="external" camunda:topic="statusNotification" camunda:taskPriority="75">
+      <bpmn:documentation>External Task to notify users of process status.</bpmn:documentation>
+      <bpmn:extensionElements>
+        <camunda:field name="">
+          <camunda:string></camunda:string>
+        </camunda:field>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1pv15bz</bpmn:incoming>
+      <bpmn:outgoing>Flow_1o1tfef</bpmn:outgoing>
+    </bpmn:serviceTask>
   </bpmn:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="simpleRequest">
-      <bpmndi:BPMNEdge id="Flow_1cvtjof_di" bpmnElement="Flow_1cvtjof">
-        <di:waypoint x="410" y="117" />
-        <di:waypoint x="495" y="117" />
+      <bpmndi:BPMNEdge id="Flow_1o1tfef_di" bpmnElement="Flow_1o1tfef">
+        <di:waypoint x="950" y="117" />
+        <di:waypoint x="1052" y="117" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_0pubklc_di" bpmnElement="Flow_0pubklc">
-        <di:waypoint x="215" y="117" />
-        <di:waypoint x="310" y="117" />
+      <bpmndi:BPMNEdge id="Flow_1pv15bz_di" bpmnElement="Flow_1pv15bz">
+        <di:waypoint x="765" y="117" />
+        <di:waypoint x="850" y="117" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_1yok6ut_di" bpmnElement="Flow_1yok6ut">
-        <di:waypoint x="545" y="117" />
-        <di:waypoint x="732" y="117" />
+      <bpmndi:BPMNEdge id="Flow_0lycfh8_di" bpmnElement="Flow_0lycfh8">
+        <di:waypoint x="360" y="235" />
+        <di:waypoint x="360" y="157" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1hh1k16_di" bpmnElement="Flow_1hh1k16">
+        <di:waypoint x="360" y="285" />
+        <di:waypoint x="360" y="360" />
+        <di:waypoint x="740" y="360" />
+        <di:waypoint x="740" y="142" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="615" y="99" width="47" height="14" />
+          <dc:Bounds x="510" y="342" width="80" height="14" />
         </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0wcmq9h_di" bpmnElement="Flow_0wcmq9h">
+        <di:waypoint x="470" y="260" />
+        <di:waypoint x="385" y="260" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0sycism_di" bpmnElement="Flow_0sycism">
         <di:waypoint x="520" y="142" />
@@ -66,22 +102,20 @@
           <dc:Bounds x="529" y="173" width="82" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_0wcmq9h_di" bpmnElement="Flow_0wcmq9h">
-        <di:waypoint x="470" y="260" />
-        <di:waypoint x="385" y="260" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_1hh1k16_di" bpmnElement="Flow_1hh1k16">
-        <di:waypoint x="360" y="285" />
-        <di:waypoint x="360" y="340" />
-        <di:waypoint x="750" y="340" />
-        <di:waypoint x="750" y="135" />
+      <bpmndi:BPMNEdge id="Flow_1yok6ut_di" bpmnElement="Flow_1yok6ut">
+        <di:waypoint x="545" y="117" />
+        <di:waypoint x="715" y="117" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="515" y="322" width="80" height="14" />
+          <dc:Bounds x="657" y="99" width="47" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_0lycfh8_di" bpmnElement="Flow_0lycfh8">
-        <di:waypoint x="360" y="235" />
-        <di:waypoint x="360" y="157" />
+      <bpmndi:BPMNEdge id="Flow_1cvtjof_di" bpmnElement="Flow_1cvtjof">
+        <di:waypoint x="410" y="117" />
+        <di:waypoint x="495" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0pubklc_di" bpmnElement="Flow_0pubklc">
+        <di:waypoint x="215" y="117" />
+        <di:waypoint x="310" y="117" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="start">
         <dc:Bounds x="179" y="99" width="36" height="36" />
@@ -90,9 +124,9 @@
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_10nxl2b_di" bpmnElement="Event_10nxl2b">
-        <dc:Bounds x="732" y="99" width="36" height="36" />
+        <dc:Bounds x="1052" y="99" width="36" height="36" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="740" y="75" width="19" height="14" />
+          <dc:Bounds x="1060" y="75" width="19" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_0ogurra_di" bpmnElement="reviewForApproval">
@@ -101,11 +135,17 @@
       <bpmndi:BPMNShape id="Gateway_1lcfrw3_di" bpmnElement="Gateway_1lcfrw3" isMarkerVisible="true">
         <dc:Bounds x="495" y="92" width="50" height="50" />
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_0u9v31c_di" bpmnElement="Gateway_0u9v31c" isMarkerVisible="true">
+        <dc:Bounds x="335" y="235" width="50" height="50" />
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_102sehj_di" bpmnElement="userReviewRejection">
         <dc:Bounds x="470" y="220" width="100" height="80" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Gateway_0u9v31c_di" bpmnElement="Gateway_0u9v31c" isMarkerVisible="true">
-        <dc:Bounds x="335" y="235" width="50" height="50" />
+      <bpmndi:BPMNShape id="Gateway_0p3pk3d_di" bpmnElement="Gateway_0p3pk3d" isMarkerVisible="true">
+        <dc:Bounds x="715" y="92" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_01dxq9n_di" bpmnElement="statusNotification">
+        <dc:Bounds x="850" y="77" width="100" height="80" />
       </bpmndi:BPMNShape>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
